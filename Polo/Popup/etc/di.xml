@@ -1,0 +1,16 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="polo_popup_post_listing_data_source" xsi:type="string">Polo\Popup\Model\ResourceModel\Post\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Polo\Popup\Model\ResourceModel\Post\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">polo_popup_post</argument>
+            <argument name="resourceModel" xsi:type="string">Polo\Popup\Model\ResourceModel\Post</argument>
+        </arguments>
+    </virtualType>
+
+</config>
