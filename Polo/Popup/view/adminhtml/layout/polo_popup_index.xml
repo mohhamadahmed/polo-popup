@@ -1,0 +1,11 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+
+            <block class="Polo\Popup\Block\Adminhtml\Popup\Edit" name="polo_popup_index"/>
+
+        </referenceContainer>
+    </body>
+</page>
+

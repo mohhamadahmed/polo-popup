@@ -1,0 +1,84 @@
+<?php
+
+/*Current Product Mdeia Url*/
+
+$url = $this->helper('Polo\Popup\Helper\Url');
+$currentProducturl = $url->getMediaPath();
+
+/*Current Product*/
+
+$currentProduct = $block->getCurrentProduct();
+$currentProductId = $currentProduct->getId();
+$currentProductUrl = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+
+/*Uploaded Product Id and Image Path Collection*/
+
+$uploadedProduct = $block->getpostCollection();
+
+/*Get Uploaded Product Id and Image Path From Current Product Id*/
+
+$uploadedCollection = $block->getProductById($currentProductId);
+$imagefileurl =  $uploadedCollection->getFile();
+$updatedpath = ltrim($imagefileurl ,'/media');
+
+
+if($uploadedCollection->getId()){
+
+    ?>
+
+    <div id="popup-modal" style="display:none;" class="custom-popup">
+        <button class="action-close" data-role="closeBtn" type="button">
+            <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Close</font></font></span>
+        </button>
+        <img class="product-image"
+             data-role="image-element"
+             data-image-lazyloading="no"
+             src="<?php echo $currentProducturl .$updatedpath; ?>"
+             style="width:1050px;max-width:400px"
+             alt="Image">
+
+    </div>
+
+    <script>
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal',
+                'mage/cookies'
+            ],
+            function(
+                $,
+                modal
+            ) {
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    opened: function($Event) {
+                        $(".modal-footer").hide();
+                        $(".modal-header").hide();
+                    }
+                    // title: 'popup modal title'
+                };
+
+                var popup = modal(options, $('#popup-modal'));
+
+                var cookie_name = $.cookie('cookie_product_name_<?php echo $uploadedCollection->getId(); ?>');
+                if(cookie_name == <?php echo $uploadedCollection->getId(); ?>){
+                }else{
+                    $("#popup-modal").modal("openModal");
+                    $.cookie('cookie_product_name_<?php echo $uploadedCollection->getId(); ?>','<?php echo $uploadedCollection->getId(); ?>' , { path: '<?php $currentProductUrl; ?>' });//Set the cookies
+                }
+
+            }
+        );
+    </script>
+
+    <?php
+}
+else
+{
+    return;
+}
+
+?>
